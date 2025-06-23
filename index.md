@@ -92,17 +92,18 @@ void loop(){
 ``` 
 
 # Next Steps - 1st Milestone
-Now that I have obtained the MAC address for one ESP32-S2, the next steps I need to take will be to connect the ESP32-S2s to their respective hardware using the Qwiic connectors to create the starting and ending motion sensors, which will help record the elapsed time of a sprint. Once I've done that, I will need to verify and possibly fix the "Start" and "Finish" Codes for the starting and ending setups. Once the "Start" and "Finish" codes have been verified to work, that will have completed my 2nd milestone, which is to get all the code to work. After that, all that is left of the project will be to test everything to ensure it works, CAD and 3D print a cover, and to assemble everything.
+Now that I have obtained the MAC address for one ESP32-S2, the next steps I need to take will be to connect the ESP32-S2s to their respective hardware using the Qwiic connectors to create the starting and ending motion sensors. Once I've done that, I will need to verify and possibly fix the "Start" and "Finish" Codes for the starting and ending setups. Once the "Start" and "Finish" codes have been verified to work, that will have completed my 2nd milestone, which is to get all the code to work. After that, all that is left of the project will be to test everything to ensure it works, CAD and 3D print a cover, and to assemble everything.
 
 # Bill of Materials
-<!--- Here's where you'll list the parts in your project. To add more rows, just copy and paste the example rows below.
-Don't forget to place the link of where to buy each component inside the quotation marks in the corresponding row after href =. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize this to your project needs. --->
 
-<!--- | **Part** | **Note** | **Price** | **Link** |
+| **Part** | **Note** | **Price** | **Link** |
 |:--:|:--:|:--:|:--:|
-| Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
-| Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
-| Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> | --->
+| (2) Metal Pushbutton with Wires (16mm) | What the item is used for | $8.95 | <a href="https://www.sparkfun.com/metal-pushbutton-momentary-16mm-red.html"> Link </a> |
+| (2) SparkFun Thing Plus - ESP32-S2 | What the item is used for | $24.50 | <a href="https://www.sparkfun.com/sparkfun-thing-plus-esp32-s2-wroom.html"> Link </a> |
+| (2) SparkFun Distance Sensor Breakout - 4mm, VL53L1X (Qwiic) | What the item is used for | $29.95 | <a href="https://www.sparkfun.com/sparkfun-distance-sensor-breakout-4-meter-vl53l1x-qwiic.html"> Link </a> | 
+| SparkFun Qwiic Cable Kit | What the item is used for | $12.95 | <a href="https://www.sparkfun.com/sparkfun-qwiic-cable-kit.html"> Link </a> | 
+| SparkFun Qwiic OLED Display (0.91 in., 128x32) | What the item is used for | $10.95 | <a href="https://www.sparkfun.com/sparkfun-qwiic-oled-display-0-91-in-128x32-lcd-24606.html"> Link </a> | 
+| Anker PowerCore Slim 10K | What the item is used for | $25.99 | <a href="https://www.anker.com/products/a1229"> Link </a> | 
 
 # Other Resources/Examples
 <!--- One of the best parts about Github is that you can view how other people set up their own work. Here are some past BSE portfolios that are awesome examples. You can view how they set up their portfolio, and you can view their index.md files to understand how they implemented different portfolio components.

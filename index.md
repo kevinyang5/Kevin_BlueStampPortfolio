@@ -92,7 +92,7 @@ void loop(){
 ``` 
 
 # Next Steps - 1st Milestone
-Now that I have obtained the MAC address for one ESP32-S2, the next steps I need to take will be to connect the ESP32-S2s to their respective hardware using the provided Qwiic connectors to create the starting and ending motion sensors, which will help record the elapsed time of a sprint. Once I've done that, I will need to verify and possibly fix the "Start" and "Finish" Codes for the starting and ending setups. Once the "Start" and "Finish" codes have been verified to work, that will have completed my 2nd milestone, which is to get all the code to work. After that, all that is left of the project will be to test everything to ensure it works, CAD and 3D print a cover for all the hardware and devices, and assemble everything together to create the actual timer. 
+Now that I have obtained the MAC address for one ESP32-S2, the next steps I need to take will be to connect the ESP32-S2s to their respective hardware using the Qwiic connectors to create the starting and ending motion sensors, which will help record the elapsed time of a sprint. Once I've done that, I will need to verify and possibly fix the "Start" and "Finish" Codes for the starting and ending setups. Once the "Start" and "Finish" codes have been verified to work, that will have completed my 2nd milestone, which is to get all the code to work. After that, all that is left of the project will be to test everything to ensure it works, CAD and 3D print a cover, and to assemble everything.
 
 # Bill of Materials
 <!--- Here's where you'll list the parts in your project. To add more rows, just copy and paste the example rows below.

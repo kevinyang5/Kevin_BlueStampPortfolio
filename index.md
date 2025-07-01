@@ -77,7 +77,6 @@ Now that I have obtained the MAC address for one ESP32-S2, the next steps I need
 To watch the BSE tutorial on how to create a portfolio, click here. --->
 
 # Starter Project: RGB Slider
-
 <iframe width="560" height="315" src="https://www.youtube.com/embed/QllSI647z14?si=3Erbfct-ZkgH6jQq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
 
 # Description

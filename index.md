@@ -45,18 +45,107 @@ For your second milestone, explain what you've worked on since your previous mil
 <!--- Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. --->
 
 # Sending ESP32 Code
-```c++
+```
+#include <esp_now.h>
+#include <WiFi.h>
+#include "SparkFun_VL53L1X.h"
+#include <Wire.h>
+
+// MAC Address of the receiver ESP32
+uint8_t broadcastAddress[] = {0x00, 0x4B, 0x12, 0x2F, 0xBD, 0x30};
+
+// Define struct for sending data
+typedef struct struct_message {
+  char a[32];
+  int b;     // Will hold the distance reading
+  float c;
+  bool d;
+} struct_message;
+
+struct_message myData;
+
+// VL53L1X setup
+SFEVL53L1X distanceSensor;
+
+// ESP-NOW peer info
+esp_now_peer_info_t peerInfo;
+
+// Callback when data is sent
+void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+  Serial.print("\r\nLast Packet Send Status:\t");
+  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+}
+
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.println("Hello World!");
+  Serial.begin(115200);
+  delay(1000);  // Allow time for serial to start
+
+  // Start I2C
+  Wire.begin();
+
+  // Initialize VL53L1X
+  if (distanceSensor.begin() != 0) {
+    Serial.println("VL53L1X not detected");
+    while (1);
+  }
+  Serial.println("VL53L1X ready");
+
+  // Set up WiFi as STA
+  WiFi.mode(WIFI_STA);
+
+  // Init ESP-NOW
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("Error initializing ESP-NOW");
+    return;
+  }
+
+  // Register callback and peer
+  esp_now_register_send_cb(OnDataSent);
+  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+  peerInfo.channel = 0;
+  peerInfo.encrypt = false;
+
+  if (esp_now_add_peer(&peerInfo) != ESP_OK) {
+    Serial.println("Failed to add peer");
+    return;
+  }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  // Start a ranging measurement
+  distanceSensor.startRanging();
 
+  // Wait for data to be ready
+  while (!distanceSensor.checkForDataReady()) {
+    delay(1);
+  }
+
+  // Read distance in mm
+  int distance = distanceSensor.getDistance();
+
+  // Stop ranging to save power
+  distanceSensor.clearInterrupt();
+  distanceSensor.stopRanging();
+
+  // Populate the struct
+  strcpy(myData.a, "Distance reading");
+  myData.b = distance;
+  myData.c = 1.2;      // You can replace this with more sensor data if needed
+  myData.d = false;    // Or use this to indicate some event
+
+  // Send the data
+  esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &myData, sizeof(myData));
+
+  if (result == ESP_OK) {
+    Serial.print("Sent distance: ");
+    Serial.println(distance);
+  } else {
+    Serial.println("Error sending the data");
+  }
+
+  delay(2000);  // Delay between readings
 }
-``` --->
+```
 
 # Receiving ESP32 Code
 <!--- Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs.
@@ -85,7 +174,7 @@ My first milestone for my Sprint Timer intensive project was to find the Media A
 I only really ran into one challenge while trying to obtain the MAC address. When first installing the Arduino IDE, I used the ESP32 Starting Guide that was linked to the BlueStamp Student Wiki to set everything up. However, what I didn't realize was that the BlueStamp tutorial was for an ESP32. My project uses ESP32-S2, not ESP32. Thus, when I copied the code from the website onto Arduino IDE and uploaded it, I ended up getting an error that said my code failed uploading because the chip that was connected was ESP32-S2, not ESP32. All I had to do was to change the Arduino IDE ESP32 Dev Module into the ESP32-S2 Dev Module. However, at that initial moment, I didn't realize that the solution was the easy fix of changing the Dev Module. At first, I was clueless on what to do. I tried to look online for help, but Google didn't really even answer my question, so that was useless. It was not until next class when I payed more attention to what I already had on Arduino IDE when I realized that all I had to do was change the Dev Module to work with ESP32-S2. This challenge wasn't a really big roadblock by any means, but it had me very frustrated at first. From this, I learned to pay more attention and really analyze everything I already have and what I could possibly change in my code. 
 
 # Code - 1st Milestone
-```c++
+```
 #include "WiFi.h"
 
 void setup(){

@@ -2,10 +2,6 @@
 <!--- Replace this text with a brief description (2-3 sentences) of your project. This description should draw the reader in and make them interested in what you've built. You can include what the biggest challenges, takeaways, and triumphs from completing the project were. As you complete your portfolio, remember your audience is less familiar than you are with all that your project entails! -->
 
 <!--- You should comment out all portions of your portfolio that you have not completed yet, as well as any instructions: --->
-```HTML 
-<!--- This is an HTML comment in Markdown -->
-<!--- Anything between these symbols will not render on the published site -->
-```
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|
@@ -30,16 +26,22 @@ For your final milestone, explain the outcome of your project. Key details to in
 
 
 # Second Milestone - Getting 2 ESP32s to communicate
-
-<!--- **Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/y3VAmNlER5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/q5YQB9iJI4Q?si=sCi90vI5DvDdba0C" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 For your second milestone, explain what you've worked on since your previous milestone. You can highlight:
 - Technical details of what you've accomplished and how they contribute to the final goal
 - What has been surprising about the project so far
 - Previous challenges you faced that you overcame
 - What needs to be completed before your final milestone --->
+
+# Description - 2nd Milestone
+My 2nd milestone for my Sprint Timer was to allow both of my ESP32s to communicate with each other. In order to allow two ESP32s to communicate, we need to know the MAC address of the ESP32 that will receive the information. I found the MAC address by running a couple lines of code, which is shown in the 1st milestone documentation. In order to test if the two ESP32s could communicate, I tried a couple different methods to verify that the two ESP32s were able to communicate. First, I ran some simple code to print some random text on the serial monitor just to ensure that there were no issues with my hardware since I ran into multiple hardware problems earlier which I'll go into more detail about when talking about my challenges. Next, I ran some code that would attempt to verify that the sending ESP had the ability to send information and that the receiving ESP was able to receive the information being sent by the sending ESP. If the delivery of data was successful, it would print "Sent with success" on the serial monitor. If the receiving ESP successfully received the data, it would print the whole struct message on the serial monitor. (Not done yet)
+
+# Challenges - 2nd Milestone
+I ran into a lot of challenges while trying to achieve my 2nd milestone. Initially, I used ESP32-S2s and an OLED screen both created by SparkFun. However, when attempting to achieve communication between both ESP32-S2s, nothing seemed to work. I used the code for both the "Start" and "Finish" setups from the SparkFun website instructions for the sprint timer, but nothing printed on the serial monitor that showed any sort of communication between the two ESP32-S2s. According to Arduino IDE, there was nothing inherently wrong with the code, and everything was verified. Still, the serial monitor would not print any confirmation that showed the two ESP32-S2s sending and receiving information. Additionally, when plugging in the OLED screen to a power source, it just would not turn on. Nothing I did seemed to make it turn on. By experiencing these setbacks, I concluded it was a hardware issue. However, I didn't know if the VL53L1x motion sensor worked or not. I wasn't able to test it because the ESP32-S2s didn't seem to work either, so I couldn't get any distance readings from it. I had to find some other way to test if the motion sensor worked or not. As a result, I switched to using ESP32s instead of ESP32-S2s and switched to an LCD I2C screen instead of the OLED screen. (not done yet)
+
+# Next Steps - 2nd Milestone
+Now that I've managed to get my 2 ESP32s to communicate, my next steps are going to be to make it so when the starting motion sensor detects motion such as a person passing through or someone waving their hand across, it will start an elapsed time. That will be the most significant part of my project because that makes my two setups work as an actual sprint timer. Once that is finished, my project is essentially done, but I will still need to do a couple extra steps like cadding and 3d printing covers to store my hardware and make it look like an actual 40-yard dash laser timer that is used in the NFL combine. All that is left after that is to make some slight modifications just to include my project's overall quality. 
 
 # Schematics 
 <!--- Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. --->

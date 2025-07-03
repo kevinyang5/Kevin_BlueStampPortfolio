@@ -43,8 +43,11 @@ I ran into a ton of challenges and setbacks while trying to achieve my 2nd miles
 # Next Steps - 2nd Milestone
 Now that I've managed to get my 2 ESP32s to communicate, my next steps are going to be to make it so when the starting motion sensor detects motion such as a person passing through or someone waving their hand across, it will start an elapsed time. That will be the most significant part of my project because that makes my two setups work as an actual sprint timer. Once that is finished, my project is essentially done, but I will still need to do a couple extra steps like cadding and 3d printing covers to store my hardware and make it look like an actual 40-yard dash laser timer that is used in the NFL combine. All that is left after that is to make some slight modifications just to include my project's overall quality. 
 
-# Schematics 
-<!--- Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. --->
+# Starting Setup Schematic
+Starting Setup.png
+
+# Finishing Setup Schematic
+
 
 # First Milestone - Finding the MAC Address of one ESP32-S2
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4wfWdBVm-4M?si=NU4qoyfDkIXT_a_3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

@@ -75,7 +75,6 @@ Now that I have obtained the MAC address for one ESP32-S2, the next steps I need
 - [Example 1](https://trashytuber.github.io/YimingJiaBlueStamp/)
 - [Example 2](https://sviatil0.github.io/Sviatoslav_BSE/)
 - [Example 3](https://arneshkumar.github.io/arneshbluestamp/)
-
 To watch the BSE tutorial on how to create a portfolio, click here. --->
 
 # Starter Project: RGB Slider
@@ -89,7 +88,8 @@ There were a couple of challenges that I faced while I was creating my starter p
 Now that my starter project is completed, I have gained more knowledge and practice with soldering which will help when I eventually get to the soldering portion of my intensive project. I will now be able to start working on my intensive project, which is the 40-Yard Dash Sprint Timer. 
 
 # Appendix - Code
-# Milestone 1 Code - Finding MAC address
+-------------------------
+# Milestone 1 Code - Finding the MAC address
 ```
 #include "WiFi.h"
 

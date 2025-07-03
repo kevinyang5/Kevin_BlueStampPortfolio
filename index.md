@@ -44,7 +44,7 @@ I ran into a ton of challenges and setbacks while trying to achieve my 2nd miles
 Now that I've managed to get my 2 ESP32s to communicate, my next steps are going to be to make it so when the starting motion sensor detects motion such as a person passing through or someone waving their hand across, it will start an elapsed time. That will be the most significant part of my project because that makes my two setups work as an actual sprint timer. Once that is finished, my project is essentially done, but I will still need to do a couple extra steps like cadding and 3d printing covers to store my hardware and make it look like an actual 40-yard dash laser timer that is used in the NFL combine. All that is left after that is to make some slight modifications just to include my project's overall quality. 
 
 # Starting Setup Schematic
-Starting Setup.png
+![Schematic Image](Starting Setup.png)
 
 # Finishing Setup Schematic
 

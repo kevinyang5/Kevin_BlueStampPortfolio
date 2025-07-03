@@ -1,5 +1,5 @@
 # 40-Yard Dash Sprint Timer 
-Do you think you can run a faster 40-yard dash than a NFL player? If you want an affordable method to test it without using manual hand timing that's prone to human error, then try using this sprint timer inspired by the NFL Combine's 40-yard dash! This project is a NFL Combine inspired automated electronic sprint timer that uses ESP32s for communication, VL53L1X motion sensors, and a LCD screen that will display your final elapsed time. How about we use this sprint timer project to test if you've got a faster 40-yard dash than an NFL player?
+Do you think you can run a faster 40-yard dash than a NFL player? If you want an affordable method to test it without using manual hand timing that's prone to human error, then try using this sprint timer inspired by the NFL Combine's 40-yard dash! This project is a NFL Combine inspired automated electronic sprint timer that uses ESP32s for communication, VL53L1X motion sensors, and a LCD screen that will display your final elapsed time. How about we use this sprint timer project to test if you've got a faster 40-yard dash than an NFL player!
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|
@@ -62,7 +62,7 @@ Now that I have obtained the MAC address for one ESP32-S2, the next steps I need
 | **Part** | **Note** | **Price** | **Link** |
 |:--:|:--:|:--:|:--:|
 | (2) Metal Pushbutton with Wires (16mm) | What the item is used for | $8.95 | <a href="https://www.sparkfun.com/metal-pushbutton-momentary-16mm-red.html"> Link </a> |
-| (2) SparkFun Thing Plus - ESP32-S2 | What the item is used for | $24.50 | <a href="https://www.sparkfun.com/sparkfun-thing-plus-esp32-s2-wroom.html"> Link </a> |
+| 2Pack ESP32 Development Board CP2102 | What the item is used for | $12.99 | <a href="https://www.amazon.com/Hosyond-Development-Bluetooth-Microcontroller-Compatible/dp/B09XDMVS9N/ref=sr_1_22_sspa?crid=3J11QQGHEG16C&dib=eyJ2IjoiMSJ9.is-SH_RLGHiZZUrqvTWU_JNOvdR7aKbmm4bb_y393N6jud_4gMIiqQQY-xb6H2GuvezVlU_delmFVm9Oexf_R6g0-RF67ww5hI4c8gPCBnY9VLfm-z9vuyqYhkrb4rjV2HC7t8_wDfdbWkkOiqLcEuCcn_zZVFSIvVcsNNqXS3TpkjOCIsvc5KxUoo_4iwKnZpov2nnurYeClr0k8efW12wn2qQxqotFQmIdnMbD5hU.8AMkbfskSULbXDXii1DfkNUzcJcAn97uuOVhUJgsfdg&dib_tag=se&keywords=esp32&qid=1751583893&sprefix=esp32%2Caps%2C181&sr=8-22-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9idGY&th=1"> Link </a> |
 | (2) SparkFun Distance Sensor Breakout - 4mm, VL53L1X (Qwiic) | What the item is used for | $29.95 | <a href="https://www.sparkfun.com/sparkfun-distance-sensor-breakout-4-meter-vl53l1x-qwiic.html"> Link </a> | 
 | SparkFun Qwiic Cable Kit | What the item is used for | $12.95 | <a href="https://www.sparkfun.com/sparkfun-qwiic-cable-kit.html"> Link </a> | 
 | 16x2 LCD Display with I2C Interface | Displays the elapsed time of a sprint | $7.00 | <a href="https://store-usa.arduino.cc/products/16x2-lcd-display-with-i-c-interface"> Link </a> | 

@@ -65,7 +65,7 @@ Now that I have obtained the MAC address for one ESP32-S2, the next steps I need
 | (2) SparkFun Thing Plus - ESP32-S2 | What the item is used for | $24.50 | <a href="https://www.sparkfun.com/sparkfun-thing-plus-esp32-s2-wroom.html"> Link </a> |
 | (2) SparkFun Distance Sensor Breakout - 4mm, VL53L1X (Qwiic) | What the item is used for | $29.95 | <a href="https://www.sparkfun.com/sparkfun-distance-sensor-breakout-4-meter-vl53l1x-qwiic.html"> Link </a> | 
 | SparkFun Qwiic Cable Kit | What the item is used for | $12.95 | <a href="https://www.sparkfun.com/sparkfun-qwiic-cable-kit.html"> Link </a> | 
-| 16x2 LCD Display with I2C Interface | Displays the elapsed time of a sprint | $10.95 | <a href="https://store-usa.arduino.cc/products/16x2-lcd-display-with-i-c-interface"> Link </a> | 
+| 16x2 LCD Display with I2C Interface | Displays the elapsed time of a sprint | $7.00 | <a href="https://store-usa.arduino.cc/products/16x2-lcd-display-with-i-c-interface"> Link </a> | 
 | (2) Anker PowerCore Slim 10K | What the item is used for | $25.99 | <a href="https://www.anker.com/products/a1229"> Link </a> | 
 
 # Other Resources/Examples

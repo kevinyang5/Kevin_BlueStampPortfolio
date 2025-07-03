@@ -89,7 +89,7 @@ There were a couple of challenges that I faced while I was creating my starter p
 Now that my starter project is completed, I have gained more knowledge and practice with soldering which will help when I eventually get to the soldering portion of my intensive project. I will now be able to start working on my intensive project, which is the 40-Yard Dash Sprint Timer. 
 
 # Appendix - Code
-# Milestone 1 Code
+# Milestone 1 Code - Finding MAC address
 ```
 #include "WiFi.h"
 

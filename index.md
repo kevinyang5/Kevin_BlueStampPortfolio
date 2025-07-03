@@ -1,6 +1,5 @@
 # 40-Yard Dash Sprint Timer 
-<!--- Replace this text with a brief description (2-3 sentences) of your project. This description should draw the reader in and make them interested in what you've built. You can include what the biggest challenges, takeaways, and triumphs from completing the project were. As you complete your portfolio, remember your audience is less familiar than you are with all that your project entails! -->
-<!--- My intensive project is a sprint timer that is inspired by the 40-yard dash laser timer that's used during the NFL Combine. --->
+Do you think you can run a faster 40-yard dash than a NFL player? If you want an affordable method to test it without using manual hand timing that's prone to human error, then try using this sprint timer inspired by the NFL Combine's 40-yard dash! This project is an automated electronic sprint timer that uses ESP32s for communication, VL53L1X motion sensors, and a LCD screen that will display your final elapsed time. How about we use this sprint timer project to test if you've got a faster 40-yard dash than an NFL player?
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|

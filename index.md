@@ -66,7 +66,7 @@ Now that I have obtained the MAC address for one ESP32-S2, the next steps I need
 | (2) SparkFun Distance Sensor Breakout - 4mm, VL53L1X | Detects an object crossing the sensor within a threshold which will start or end the sprint timer | $29.95 | <a href="https://www.sparkfun.com/sparkfun-distance-sensor-breakout-4-meter-vl53l1x-qwiic.html"> Link </a> | 
 | SparkFun Qwiic Cable Kit | What the item is used for | $12.95 | <a href="https://www.sparkfun.com/sparkfun-qwiic-cable-kit.html"> Link </a> | 
 | 16x2 LCD Display with I2C Interface | Displays the elapsed time of a sprint | $7.00 | <a href="https://store-usa.arduino.cc/products/16x2-lcd-display-with-i-c-interface"> Link </a> | 
-| (2) Anker PowerCore Slim 10K | What the item is used for | $25.99 | <a href="https://www.anker.com/products/a1229"> Link </a> | 
+| (2) Anker PowerCore Slim 10K | Power sources to provide power to the starting and finishing setups | $25.99 | <a href="https://www.anker.com/products/a1229"> Link </a> | 
 
 # Other Resources/Examples
 <!--- One of the best parts about Github is that you can view how other people set up their own work. Here are some past BSE portfolios that are awesome examples. You can view how they set up their portfolio, and you can view their index.md files to understand how they implemented different portfolio components.

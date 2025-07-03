@@ -1,5 +1,5 @@
 # 40-Yard Dash Sprint Timer 
-Do you think you can run a faster 40-yard dash than a NFL player? If you want an affordable method to test it without using manual hand timing that's prone to human error, then try using this sprint timer inspired by the NFL Combine's 40-yard dash! This project is an automated electronic sprint timer that uses ESP32s for communication, VL53L1X motion sensors, and a LCD screen that will display your final elapsed time. How about we use this sprint timer project to test if you've got a faster 40-yard dash than an NFL player?
+Do you think you can run a faster 40-yard dash than a NFL player? If you want an affordable method to test it without using manual hand timing that's prone to human error, then try using this sprint timer inspired by the NFL Combine's 40-yard dash! This project is a NFL Combine inspired automated electronic sprint timer that uses ESP32s for communication, VL53L1X motion sensors, and a LCD screen that will display your final elapsed time. How about we use this sprint timer project to test if you've got a faster 40-yard dash than an NFL player?
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
 |:--:|:--:|:--:|:--:|

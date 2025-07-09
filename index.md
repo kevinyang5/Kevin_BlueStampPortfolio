@@ -45,15 +45,12 @@ Now that I've managed to get my 2 ESP32s to communicate, my next steps are going
 
 # Figure 1 - Starting Setup Schematic
 ![Schematic Image](Starting Setup.png)
-
 # Figure 2 - Finishing Setup Schematic
 ![Schematic Image](Ending Setup.png)
-
 # Figure 3 - SparkFun VL53L1X Schematic
 ![Schematic Image](Motion sensor Schematic.png)
-
 # Figure 4 - LCD Screen Schematic
-
+![Schematic Image](LCD Schematic.png)
 
 # First Milestone - Finding the MAC Address of one ESP32-S2
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4wfWdBVm-4M?si=NU4qoyfDkIXT_a_3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

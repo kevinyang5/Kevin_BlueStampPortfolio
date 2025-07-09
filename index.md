@@ -22,10 +22,10 @@ For your final milestone, explain the outcome of your project. Key details to in
 - What you hope to learn in the future after everything you've learned at BSE --->
 
 ## Description - Final Milestone
-<!--- text --->
+My final milestone was to complete my final product for my sprint timer before any possible further modifications. This milestone consisted of writing code to make the actual timer, cadding cases for both setups to store all the hardware and other parts, wiring and soldering metal pushbuttons to both the starting and finishing setups, and assembling everything. (not done yet)
 
 ## Challenges - Final Milestone
-<!--- text --->
+I only really ran into one major challenge when working with my code for the timer. There wasn't anything wrong with the code, but when I ran some trials by just waving my hand over the motion sensors, the elapsed time was inaccurate. Instead of resetting after each trial, the elapsed times kept adding up after each test. At first, I thought it was an issue with my code, but after making multiple changes without avail, I was completely lost. While working with (not done yet)
 
 # Second Milestone - Getting 2 ESP32s to communicate
 <iframe width="560" height="315" src="https://www.youtube.com/embed/q5YQB9iJI4Q?si=sCi90vI5DvDdba0C" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -260,5 +260,187 @@ void setup() {
  
 void loop() {
 
+}
+```
+## Final Milestone Code - Starting/Sending Setup Code
+```
+#include <esp_now.h>                                  // Library for ESP-NOW communication
+#include <WiFi.h>                             
+#include <Wire.h>                                     // I2C communication library
+#include <LiquidCrystal_I2C.h>                        // LCD I2C library
+#include "SparkFun_VL53L1X.h"                         // Sparkfun VL53L1X distance sensor library
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);                   // Initialize 16x2 LCD. I2C Address: 0x27
+SFEVL53L1X distanceSensor;                            // Create instance of distance sensor
+
+uint8_t finishMac[] = {0x00, 0x4B, 0x12, 0x2F, 0xBD, 0x30}; // MAC address of finishing ESP32
+
+typedef struct struct_message {
+  char msgType[10];                                   // Message says either "START" or "STOP"
+  unsigned long timestamp;                            // Timestamp in milliseconds
+} struct_message;
+
+struct_message messageToSend;                         // Message to send to finish ESP32
+bool timingStarted = false;                           // Indicates if timing has started
+unsigned long startTime = 0;                          // Variable to store start time
+
+// Callback function when data is received from another ESP32
+void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
+  struct_message received;                            // Temporary structure to hold incoming data
+  memcpy(&received, incomingData, sizeof(received));  // Copy received data into structure
+
+  // If STOP message is received and timing was started
+  if (strcmp(received.msgType, "STOP") == 0 && timingStarted) {
+    unsigned long endTime = millis();                 // Record current time as end time
+    unsigned long elapsed = endTime - startTime;      // Calculate elapsed time
+
+    lcd.clear();                                      // Clear LCD
+    lcd.setCursor(0, 0);                              
+    lcd.print("Time:");                               
+    lcd.setCursor(0, 1);                              
+    lcd.print(elapsed / 1000.0, 2);                   // Display elapsed time in seconds (2 decimals)
+    lcd.print(" sec");                                // Units
+
+    Serial.print("Elapsed Time: ");                   // Prints elapsed time to Serial Monitor
+    Serial.println(elapsed);
+
+    timingStarted = false;                            // Resets timing
+  }
+}
+
+void setup() {
+  Serial.begin(115200);                               // Start Serial Monitor
+  Wire.begin();                                       // Initialize I2C communication
+  lcd.init();                                         // Initialize LCD screen
+  lcd.backlight();                                    // Turn on LCD backlight
+  lcd.setCursor(0, 0);                        
+  lcd.print("Ready...");                      
+
+  if (distanceSensor.begin() != 0) {                  // Initialize distance sensor
+    Serial.println("Sensor fail");                    // If fails, prints an error message
+    while (1);                                        
+  }
+
+  distanceSensor.setDistanceModeLong();               // Set sensor to long-distance mode
+  distanceSensor.startRanging();                      // Start measuring distance
+
+  WiFi.mode(WIFI_STA);                                // Set WiFi to Station mode (required for ESP-NOW)
+  WiFi.disconnect();                                  // Disconnect from any previous WiFi
+
+  if (esp_now_init() != ESP_OK) {                     // Initialize ESP-NOW
+    Serial.println("ESP-NOW failed");                 // Print error if failed
+    return;                                   
+  }
+
+  esp_now_register_recv_cb(OnDataRecv);               // Register callback for receiving data
+
+  esp_now_peer_info_t peerInfo = {};                  // Create peer info struct
+  memcpy(peerInfo.peer_addr, finishMac, 6);           // Set peer MAC address
+  peerInfo.channel = 0;                               
+  peerInfo.encrypt = false;                           
+
+  if (!esp_now_add_peer(&peerInfo)) {                 // Add the peer
+    Serial.println("Peer added");                     // Confirm peer was added
+  }
+}
+
+void loop() {
+  // If timing hasn't started and new distance data is ready
+  if (!timingStarted && distanceSensor.checkForDataReady()) {
+    uint16_t distance = distanceSensor.getDistance(); // Read distance in mm
+    distanceSensor.clearInterrupt();                  // Clear sensor interrupt
+
+    Serial.print("Distance: ");                       
+    Serial.println(distance);                         // Debug: print distance
+
+    if (distance < 100) {                             // Threshold of 100mm (Won't start timing unless an object makes it within the threshold)
+      startTime = millis();                           // Records time
+      messageToSend.timestamp = startTime;            // Include timestamp in message
+      strcpy(messageToSend.msgType, "START");         
+
+      esp_now_send(finishMac, (uint8_t *)&messageToSend, sizeof(messageToSend)); // Send start message
+
+      lcd.clear();                                    
+      lcd.setCursor(0, 0);
+      lcd.print("Timing...");                         // Display "Timing..." on LCD. Indicates that timer is running
+      Serial.println("Start detected");              
+      timingStarted = true;                           // Flag that timing has started
+    }
+  }
+}
+```
+## Final Milestone Code - Finishing/Receiving Setup Code
+```
+#include <esp_now.h>                          // ESP-NOW communication library
+#include <WiFi.h>                             // Required for setting WiFi mode
+#include <Wire.h>                             // I2C communication library
+#include "SparkFun_VL53L1X.h"                 // VL53L1X distance sensor library
+
+SFEVL53L1X distanceSensor;                    // Create instance of distance sensor
+
+uint8_t startMac[] = {0x38, 0x18, 0x2B, 0x89, 0xEE, 0xBC}; // MAC address of starting ESP32
+
+typedef struct struct_message {
+  char msgType[10];                           // Message type: "START" or "STOP"
+  unsigned long timestamp;                    
+} struct_message;
+
+bool objectDetected = false;                  // Flag to prevent multiple triggers
+
+void setup() {
+  Serial.begin(115200);                       // Start Serial Monitor
+  Wire.begin();                               // Initialize I2C communication
+
+  if (distanceSensor.begin() != 0) {          // Initialize sensor
+    Serial.println("Sensor fail");            // Print error if initialization fails
+    while (1);                                
+  }
+
+  distanceSensor.setDistanceModeLong();       // Set long range mode
+  distanceSensor.startRanging();              // Start distance measurements
+
+  WiFi.mode(WIFI_STA);                        // Set WiFi mode to Station
+  WiFi.disconnect();                          // Disconnects from any previous WiFi connections
+
+  if (esp_now_init() != ESP_OK) {             // Initialize ESP-NOW
+    Serial.println("ESP-NOW failed");         // If it fails, print error message and stop
+    return;
+  }
+
+  esp_now_peer_info_t peerInfo = {};          // Create peer info struct
+  memcpy(peerInfo.peer_addr, startMac, 6);    // Set peer address (start ESP32)
+  peerInfo.channel = 0;                       // Default channel
+  peerInfo.encrypt = false;                   
+
+  esp_now_add_peer(&peerInfo);                // Add peer (start ESP32)
+}
+
+void loop() {
+  if (distanceSensor.checkForDataReady()) {           // Check if new distance data is available
+    uint16_t distance = distanceSensor.getDistance(); // Read distance
+    distanceSensor.clearInterrupt();                  // Clear interrupt for next reading
+
+    Serial.print("Distance: ");               
+    Serial.println(distance);                         // Print distance to Serial
+
+    if (distance < 100 && !objectDetected) {          // If object within 100mm and not already detected
+      struct_message stopMsg;                         // Create STOP message
+      strcpy(stopMsg.msgType, "STOP");                // Set message type
+      stopMsg.timestamp = millis();                   // Optional timestamp
+
+      // Send STOP signal back to start ESP32
+      esp_err_t result = esp_now_send(startMac, (uint8_t *)&stopMsg, sizeof(stopMsg));
+      if (result == ESP_OK) {
+        Serial.println("Stop signal sent");           // Confirm send
+      } else {
+        Serial.print("Send failed: ");                // Reports failure
+        Serial.println(result);
+      }
+
+      objectDetected = true;                          // Mark object as detected
+    } else if (distance > 300) {                      // If object is out of range (Won't be declared an object)
+      objectDetected = false;                         // Reset detection flag
+    }
+  }
 }
 ```

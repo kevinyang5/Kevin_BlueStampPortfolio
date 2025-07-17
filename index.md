@@ -59,7 +59,7 @@ Now that I've managed to get my 2 ESP32s to communicate, my next steps are going
 ## Figure 5 - Final Starting Setup with Pushbuttons
 ![Schematic Image](PushbuttonStart.png)
 ## Figure 6 - Final Finishing Setup with Pushbuttons
-
+![Schematic Image](PushbuttonFinish.png)
 
 # First Milestone - Finding the MAC Address of one ESP32-S2
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4wfWdBVm-4M?si=NU4qoyfDkIXT_a_3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

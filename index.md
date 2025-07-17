@@ -329,6 +329,8 @@ void setup() {
   }
 
   distanceSensor.setDistanceModeLong();               // Set sensor to long-distance mode
+  distanceSensor.setTimingBudgetInMs(33);
+  distanceSensor.setIntermeasurementPeriod(33);
   distanceSensor.startRanging();                      // Start measuring distance
 
   WiFi.mode(WIFI_STA);                                // Set WiFi to Station mode (required for ESP-NOW)
@@ -360,7 +362,7 @@ void loop() {
     Serial.print("Distance: ");                       
     Serial.println(distance);                         // Debug: print distance
 
-    if (distance < 100) {                             // Threshold of 100mm (Won't start timing unless an object makes it within the threshold)
+    if (distance >= 40 && distance < 150) {                             // Threshold of 100mm (Won't start timing unless an object makes it within the threshold)
       startTime = millis();                           // Records time
       messageToSend.timestamp = startTime;            // Include timestamp in message
       strcpy(messageToSend.msgType, "START");         
@@ -404,6 +406,8 @@ void setup() {
   }
 
   distanceSensor.setDistanceModeLong();       // Set long range mode
+  distanceSensor.setTimingBudgetInMs(33);
+  distanceSensor.setIntermeasurementPeriod(33);
   distanceSensor.startRanging();              // Start distance measurements
 
   WiFi.mode(WIFI_STA);                        // Set WiFi mode to Station
@@ -430,7 +434,7 @@ void loop() {
     Serial.print("Distance: ");               
     Serial.println(distance);                         // Print distance to Serial
 
-    if (distance < 100 && !objectDetected) {          // If object within 100mm and not already detected
+    if (distance  >= 40 && distance < 150 && !objectDetected) {          // If object within 100mm and not already detected
       struct_message stopMsg;                         // Create STOP message
       strcpy(stopMsg.msgType, "STOP");                // Set message type
       stopMsg.timestamp = millis();                   // Optional timestamp

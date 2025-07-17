@@ -57,7 +57,7 @@ Now that I've managed to get my 2 ESP32s to communicate, my next steps are going
 ## Figure 4 - LCD Screen Schematic
 ![Schematic Image](LCD I2C Schematic.png)
 ## Figure 5 - Final Starting Setup with Pushbuttons
-
+![Schematic Image](PushbuttonStart.png)
 ## Figure 6 - Final Finishing Setup with Pushbuttons
 
 

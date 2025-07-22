@@ -300,7 +300,7 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
     lcd.clear();                                      // Clear LCD
     lcd.setCursor(0, 0);                              
     lcd.print("Time:");                               
-    lcd.setCursor(0, 1);                              
+    lcd.setCursor(6, 0);                              
     lcd.print(elapsed / 1000.0, 2);                   // Display elapsed time in seconds (2 decimals)
     lcd.print(" sec");                                // Units
 
@@ -358,7 +358,7 @@ void loop() {
     Serial.print("Distance: ");                       
     Serial.println(distance);                         // Debug: print distance
 
-    if (distance >= 40 && distance < 150) {                             // Threshold of 100mm (Won't start timing unless an object makes it within the threshold)
+    if (distance >= 40 && distance < 300) {           // Threshold of 40 to 300mm (Won't start timing unless an object makes it within the threshold)
       startTime = millis();                           // Records time
       messageToSend.timestamp = startTime;            // Include timestamp in message
       strcpy(messageToSend.msgType, "START");         
@@ -430,7 +430,7 @@ void loop() {
     Serial.print("Distance: ");               
     Serial.println(distance);                         // Print distance to Serial
 
-    if (distance  >= 40 && distance < 150 && !objectDetected) {          // If object within 100mm and not already detected
+    if (distance  >= 40 && distance < 300 && !objectDetected) {          // 40mm to 300mm threshold to detect an object
       struct_message stopMsg;                         // Create STOP message
       strcpy(stopMsg.msgType, "STOP");                // Set message type
       stopMsg.timestamp = millis();                   // Optional timestamp

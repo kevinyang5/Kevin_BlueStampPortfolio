@@ -9,11 +9,17 @@ Do you think you can run a faster 40-yard dash than a NFL player? If you want an
 
 ![Headstone Image](logo.svg)
   
+# Modifications Milestone
+## Description
+I only really made one modification to my project which was writing some code that would estimate the distance between the two ESP32s that I'm using for my sprint timer and print it on the serial monitor. It was just supposed to be an upgrade that will improve the overall quality of the entire project. No one wants to measure any long distances by hand and not everyone is going to have access to a football field or any field with distance markings, so this modification provides a way to accurately measure a distance you want to use for a time trial. 
+## Estimating Distance using RSSI
+I chose to use RSSI to estimate the distance between the ESPs because it only involved writing code and didn't require me to add or wire any new parts. Estimating distance using RSSI can be heavily affected by the surrounding environment, but in the case of my sprint timer, it will always be in a clear space without much interference from obstacles, so I always found it to be accurate. RSSI is a measurement of the signal strength of a WiFi signal. I set up some code to have an Access Point and a Client. The Access Point sends a WiFi signal from any distance to the client. Then, the client measures the RSSI from that signal and plugs it into the equation Distance = 10^((RSSI_1m - RSSI) / (10 * n)) to estimate the distance between the two ESPs. The "RSSI_1m" variable is the measured RSSI from a known distance of 1 meter. The "N" variable is the path loss exponent, and it generally fluctuates between 2 and 4 depending on the surrounding environment. A "N" value of ~2 would be used when the surrounding environment is free space, and a value of ~4 would be used when you're indoors or if there is heavy obstruction due to obstacles. 
+
 # Final Milestone - Assembled Sprint Timer (Before modifications)
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZFY-p4rMrP4?si=1zD0YqrdyeLHSIHi" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Description - Final Milestone
-My final milestone was to complete the sprint timer. It consisted of writing code to make the timing system, CADing cases for both setups to store everything, wiring, soldering, and assembling everything. With the code, I allowed the ESP32 to start timing using its internal clock when an object was detected by the VL53L1X motion sensor. The code ensures the VL53L1X only starts the ESP's internal clock and detects an object if something crosses a specific threshold of distance from the sensor. Even if there were another object, the code only made the VL53L1X detect an object if it was within the threshold. Once the starting motion sensor detects an object, the starting ESP32's internal clock starts and the ESP also sends a signal to the finishing setup ESP32 that allows the finishing motion sensor to detect objects. Once the finishing motion sensor detects an object, it sends a signal back to the starting setup which allows the starting ESP to stop its timer and allows it to record the elapsed time and print it on the LCD display. To start a new time trial, all you need to do is press the pushbutton on the starting setup to reset everything. After writing the code, I used Onshape to CAD a case and lid for each setup to store all the hardware. Both cases were boxes with holes to allow the motion sensors and pushbuttons to point outside. The starting setup had an extra hole at the top of the box to allow the LCD display to poke out so you could see it from the outside. To connect everything, I soldered one printed circuit board (PCB) with all my other hardware for each setup. The metal pushbuttons were also soldered to each PCB. Finally, for the assembly, I hot glued the VL53L1X to the little ledge I created above the hole which allowed to motion sensor to point outside and also stick to the box and tightened the pushbuttons to the holes I made for them. The starting setup followed the same assembly procedure, but I also needed to hot glue the LCD display to the ledge I made for it to allow the screen to stick outside. 
+My final milestone was to complete the sprint timer. It consisted of writing code to make the timing system, CADing cases to store everything, wiring, soldering, and assembling everything. With the code, I allowed the ESP32 to start timing using its internal clock when an object was detected by the VL53L1X motion sensor. The code ensures the VL53L1X only starts the ESP's internal clock and detects an object if something crosses a specific threshold of distance from the sensor. Even if there were another object, the code only made the VL53L1X detect an object if it was within the threshold. Once the starting motion sensor detects an object, the starting ESP32's internal clock starts and the ESP also sends a signal to the finishing setup ESP32 that allows the finishing motion sensor to detect objects. Once the finishing motion sensor detects an object, it sends a signal back to the starting setup which allows the starting ESP to stop its timer and allows it to record the elapsed time and print it on the LCD display. To start a new time trial, all you need to do is press the pushbutton on the starting setup to reset everything. After writing the code, I used Onshape to CAD a case and lid for each setup to store all the hardware. Both cases were boxes with holes to allow the motion sensors and pushbuttons to point outside. The starting setup had an extra hole at the top of the box to allow the LCD display to poke out so you could see it from the outside. To connect everything, I soldered one printed circuit board (PCB) with all my other hardware for each setup. The metal pushbuttons were also soldered to each PCB. Finally, for the assembly, I hot glued the VL53L1X to the little ledge I created above the hole which allowed to motion sensor to point outside and also stick to the box and tightened the pushbuttons to the holes I made for them. The starting setup followed the same assembly procedure, but I also needed to hot glue the LCD display to the ledge I made for it to allow the screen to stick outside. 
 ### Metal Pushbuttons
 Both of the starting and finishing setups have a metal pushbutton wired to it. The pushbuttons are used to reset either the starting or finishing setup. My project uses the "Metal Pushbutton with Wires - Momentary (16mm, Red)" by SparkFun. They have five wires: red, green, blue, black, and white. The blue (Normally Closed wire or NC1) wire isn't needed when the pushbutton is only used to reset the setup. The red (+) wire connects to the positive power supply and provides a power path, and it's connected to the D13 pin on the ESP32 because when the pushbutton is idle, it keeps the GPIO pin at HIGH, and when it's pressed, it pulls the GPIO pin to low, which pulls the voltage down. The white (Normally Open or NO1) wire is always open unless the button is pushed, which only allows current to flow when the button is pressed. The NO1 wire is connected to the EN (RESET) pin on the ESP32, and this allows the ESP32 to reset because when the button is pressed, it allows current to flow which triggers the reset. The green (Common or C1) wire acts as the main connection for the power source and the starting point for the electrical circuit, and will direct current to either the normally open or closed terminals. The C1 wire is connected to GND (Ground) to allow a path for the current to flow from a power source. The black (-) wire also connects to GND because it provides the return path for any electrical current which completes the circuit. These four wires allow me to reset the ESP32 and thus the whole setup with just the push of a button. (Refer to Figures 5 and 6 to see fully assembled Start & Finish setup with pushbuttons)
 
@@ -66,7 +72,6 @@ I only really ran into one challenge while trying to obtain the MAC address. Whe
 Now that I have obtained the MAC address for one ESP32-S2, the next steps I need to take will be to connect the ESP32-S2s to their respective hardware using the Qwiic connectors to create the starting and ending motion sensors. Once I've done that, I will need to verify the "Start" and "Finish" Codes for the starting and ending setups. Once the "Start" and "Finish" codes have been verified to work, that will have completed my 2nd milestone, which is to verify all the code.
 
 # Bill of Materials
-
 | **Part** | **Note** | **Price** | **Link** |
 |:--:|:--:|:--:|:--:|
 | (2) Metal Pushbutton with Wires (16mm) | Resets either of the starting or finishing setups when you press the button | $8.95 | <a href="https://www.sparkfun.com/metal-pushbutton-momentary-16mm-red.html"> Link </a> |
@@ -75,7 +80,10 @@ Now that I have obtained the MAC address for one ESP32-S2, the next steps I need
 | 16x2 LCD Display with I2C Interface | Displays the elapsed time of a sprint | $7.00 | <a href="https://store-usa.arduino.cc/products/16x2-lcd-display-with-i-c-interface"> Link </a> | 
 | (2) Anker PowerCore Slim 10K | Power banks to provide power to the starting and finishing setups | $25.99 | <a href="https://www.anker.com/products/a1229"> Link </a> | 
 
-# Other Resources/Examples
+# Other Resources
+Original SparkFun Sprint Timer Documentation: <a href="https://learn.sparkfun.com/tutorials/wireless-timing-project"> Link </a> 
+  Note: I didn't really use much of the SparkFun documentation other than for the metal pushbuttons because as I said when talking about my 2nd milestone challenges, I switched from using the ESP32-S2 and OLED screen due to them not working. Most of the project was made from scratch due to the fact I couldn't use the SparkFun documentation and because of the lack of other documentation specific to my project's goals. 
+
 <!--- One of the best parts about Github is that you can view how other people set up their own work. Here are some past BSE portfolios that are awesome examples. You can view how they set up their portfolio, and you can view their index.md files to understand how they implemented different portfolio components.
 - [Example 1](https://trashytuber.github.io/YimingJiaBlueStamp/)
 - [Example 2](https://sviatil0.github.io/Sviatoslav_BSE/)
@@ -449,5 +457,236 @@ void loop() {
       objectDetected = false;                         // Reset detection flag
     }
   }
+}
+```
+## Modification Code - Access Point Code
+```
+#include <WiFi.h>
+
+// Network credentials
+const char* ssid = "ESP32_DISTANCE_AP";
+const char* password = "12345678";
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+ 
+  Serial.println("Setting up ESP32 as Access Point...");
+ 
+  // Set WiFi mode to Access Point
+  WiFi.mode(WIFI_AP);
+ 
+  // Configure Access Point
+  WiFi.softAP(ssid, password);
+ 
+  // Print AP IP address
+  IPAddress IP = WiFi.softAPIP();
+  Serial.print("AP IP address: ");
+  Serial.println(IP);
+ 
+  Serial.println("Access Point started!");
+  Serial.println("SSID: " + String(ssid));
+  Serial.println("Waiting for connections...");
+}
+
+void loop() {
+  // Check connected clients
+  int clients = WiFi.softAPgetStationNum();
+  static int lastClients = -1;
+ 
+  if (clients != lastClients) {
+    Serial.println("Connected clients: " + String(clients));
+    lastClients = clients;
+  }
+ 
+  delay(2000);
+}
+```
+## Modification Code - Client Code
+```
+#include <WiFi.h>
+
+// Target network to measure distance to
+const char* targetSSID = "ESP32_DISTANCE_AP";
+const char* password = "12345678";
+const int measuredPower = -40;
+
+// Smoothing parameters
+const int BUFFER_SIZE = 10;
+int rssiBuffer[BUFFER_SIZE];
+float distanceBuffer[BUFFER_SIZE];
+int bufferIndex = 0;
+bool bufferFull = false;
+
+// Exponential Moving Average
+float rssiEMA = 0;
+float distanceEMA = 0;
+const float alpha = 0.3; // Smoothing factor (0.1 = heavy smoothing, 0.9 = light smoothing)
+
+// Outlier detection parameters
+float lastValidDistance = 0;
+const float MAX_CHANGE_PERCENT = 50.0; // Reject changes > 50%
+const float MIN_DISTANCE = 0.1;        // Minimum realistic distance (10cm)
+const float MAX_DISTANCE = 50.0;       // Maximum realistic distance (50m)
+const int MIN_RSSI = -100;             // Minimum realistic RSSI
+const int MAX_RSSI = -10;              // Maximum realistic RSSI
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+ 
+  Serial.println("ESP32 Distance Measurement - Receiver");
+  Serial.println("Connecting to target AP...");
+ 
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(targetSSID, password);
+ 
+  // Wait for connection
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+ 
+  Serial.println("\nConnected! Starting RSSI monitoring...");
+  delay(2000); // Give time to switch to Serial Plotter
+}
+
+void loop() {
+  // Get RSSI of connected network - much faster than scanning!
+  if (WiFi.status() == WL_CONNECTED) {
+    int rssi = WiFi.RSSI();
+   
+    float rawDistance = distanceCalculation(rssi);
+   
+    // Check if this reading should be rejected
+    bool isValid = isValidReading(rssi, rawDistance);
+   
+    // Apply smoothing algorithms (only if valid, otherwise use last valid)
+    float movingAvgDistance = getMovingAverage(rssi, rawDistance);
+    float emaDistance = getExponentialMovingAverage(rssi, rawDistance);
+    float kalmanDistance = isValid ? getKalmanFiltered(rawDistance) : getKalmanFiltered(lastValidDistance);
+   
+    // Option 1: Show all for comparison with outlier detection status
+    Serial.print("RSSI: ");
+    Serial.print(rssi);
+    Serial.print(" ,Raw:");
+    Serial.print(rawDistance);
+    Serial.print(",MovingAvg:");
+    Serial.print(movingAvgDistance);
+    Serial.print(",EMA:");
+    Serial.print(emaDistance);
+    Serial.print(",Kalman:");
+    Serial.print(kalmanDistance);
+    Serial.print(",Valid:");
+    Serial.println(isValid ? 1 : 0); // 1 = valid, 0 = outlier rejected
+   
+    // Option 2: Show just cleaned data (uncomment preferred)
+    // if (isValid) {  // Only print valid readings
+    //   Serial.print("RSSI:");
+    //   Serial.print(rssi);
+    //   Serial.print(",Distance:");
+    //   Serial.println(emaDistance);
+    // }
+   
+  } else {
+    Serial.println("Disconnected");
+  }
+ 
+  delay(100);
+}
+
+float distanceCalculation(int rssi) {
+  float rssi_1m = measuredPower;  // RSSI at 1 meter (calibrate this!)
+  float pathLoss = 2.0; // Environment factor
+ 
+  // Distance = 10^((RSSI_1m - RSSI) / (10 * pathLoss))
+  float distance = pow(10, (rssi_1m - rssi) / (10 * pathLoss));
+  return distance;
+}
+
+// Outlier Detection Functions
+bool isValidRSSI(int rssi) {
+  return (rssi >= MIN_RSSI && rssi <= MAX_RSSI);
+}
+
+bool isValidDistance(float distance) {
+  return (distance >= MIN_DISTANCE && distance <= MAX_DISTANCE);
+}
+
+bool isReasonableChange(float newDistance) {
+  if (lastValidDistance == 0) return true; // First reading
+ 
+  float changePercent = abs(newDistance - lastValidDistance) / lastValidDistance * 100.0;
+  return (changePercent <= MAX_CHANGE_PERCENT);
+}
+
+// Combined outlier detection
+bool isValidReading(int rssi, float distance) {
+  return isValidRSSI(rssi) && isValidDistance(distance) && isReasonableChange(distance);
+}
+// Moving Average Filter (now with outlier rejection)
+float getMovingAverage(int newRssi, float newDistance) {
+  // Only add to buffer if it's a valid reading
+  if (isValidReading(newRssi, newDistance)) {
+    rssiBuffer[bufferIndex] = newRssi;
+    distanceBuffer[bufferIndex] = newDistance;
+   
+    bufferIndex = (bufferIndex + 1) % BUFFER_SIZE;
+    if (bufferIndex == 0) bufferFull = true;
+   
+    lastValidDistance = newDistance; // Update last valid reading
+  }
+ 
+  // Calculate average from valid readings only
+  int count = bufferFull ? BUFFER_SIZE : bufferIndex;
+  if (count == 0) return lastValidDistance; // No valid readings yet
+ 
+  float distanceSum = 0;
+  for (int i = 0; i < count; i++) {
+    distanceSum += distanceBuffer[i];
+  }
+ 
+  return distanceSum / count;
+}
+
+
+// Exponential Moving Average Filter (with outlier rejection)
+float getExponentialMovingAverage(int newRssi, float newDistance) {
+  // Only update if it's a valid reading
+  if (isValidReading(newRssi, newDistance)) {
+    if (rssiEMA == 0) { // First valid reading
+      rssiEMA = newRssi;
+      distanceEMA = newDistance;
+    } else {
+      rssiEMA = alpha * newRssi + (1 - alpha) * rssiEMA;
+      distanceEMA = alpha * newDistance + (1 - alpha) * distanceEMA;
+    }
+    lastValidDistance = newDistance;
+  }
+ 
+  return distanceEMA;
+}
+
+// Kalman Filter (simplified)
+float kalmanGain = 0.5;
+float estimatedDistance = 0;
+float errorCovariance = 1;
+
+float getKalmanFiltered(float measurement) {
+  if (estimatedDistance == 0) {
+    estimatedDistance = measurement;
+    return estimatedDistance;
+  }
+ 
+  // Prediction step (assume no change)
+  float predictedDistance = estimatedDistance;
+  float predictedError = errorCovariance + 0.1; // Process noise
+ 
+  // Update step
+  kalmanGain = predictedError / (predictedError + 0.5); // Measurement noise
+  estimatedDistance = predictedDistance + kalmanGain * (measurement - predictedDistance);
+  errorCovariance = (1 - kalmanGain) * predictedError;
+ 
+  return estimatedDistance;
 }
 ```

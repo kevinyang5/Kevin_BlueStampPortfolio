@@ -5,7 +5,7 @@ Do you think you can run a faster 40-yard dash than a NFL player? If you want an
 |:--:|:--:|:--:|:--:|
 | Kevin Y | Los Gatos High School | Electrical Engineering | Incoming Senior
 
-![Final Project Photo](KevinY.heic)
+![Final Project Photo](KevinYProject.png)
   
 # Modifications Milestone
 <iframe width="560" height="315" src="https://www.youtube.com/embed/DaYLZZDMbpw?si=LKPVoEvAaq-o8uDf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
